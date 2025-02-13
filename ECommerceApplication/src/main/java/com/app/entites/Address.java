@@ -3,12 +3,7 @@ package com.app.entites;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -52,6 +47,9 @@ public class Address {
 
 	@ManyToMany(mappedBy = "addresses")
 	private List<User> users = new ArrayList<>();
+
+	@OneToMany(mappedBy = "address", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	private List<Payment> payment;
 
 	public Address(String country, String state, String city, String pincode, String street, String buildingName) {
 		this.country = country;
